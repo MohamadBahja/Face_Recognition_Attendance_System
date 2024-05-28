@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .back-button {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #c0392b;
+        }
+
+        .details-button {
+            background-color: darkcyan;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .details-button:hover {
+            background-color: rgb(0, 109, 109);
+        }
+
+        .no-records {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Attendance Records</h2>
+        
+        {% if attendance_data %}
+        <table>
+            <tr>
+                <th>Attendance ID</th>
+                <th>Course Name</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            {% for attendance_record in attendance_data %}
+            <tr>
+                <td>{{ attendance_record[0] }}</td>
+                <td>{{ attendance_record[1] }}</td>
+                <td>{{ attendance_record[2] }}</td>
+                <td>
+                    <a href="/attendance-details/{{ attendance_record[0] }}" class="details-button">Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="no-records">No attendance records found for this course.</p>
+        {% endif %}
+        
+        <a href="/user-dashboard" class="back-button">Back to Dashboard</a>
+    </div>
+</body>
+</html>

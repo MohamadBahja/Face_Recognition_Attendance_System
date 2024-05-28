@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Feed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: darkcyan; /* Dark cyan color */
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #e74c3c; /* Red background color */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c0392b; /* Darker red for hover */
+        }
+
+        .square {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Feed</h1>
+    <img src="{{ url_for('video_feed', course_id=course_id) }}">
+    <form action="/stop-video-feed/{{ course_id }}" method="GET">
+        <input type="submit" value="Stop">
+    </form>
+    
+    <div>
+        <ul>
+            {% for label in labels %}
+            <li>
+                {{ label.upper() }}
+                {% if recognized_students.get(label.upper(), False) %}
+                <span class="square"></span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
